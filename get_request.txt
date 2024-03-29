@@ -1,0 +1,41 @@
+#include <SoftwareSerial.h>
+
+SoftwareSerial gsmSerial(17, 16); 
+const char* SERVER_URL = "https://api.thingspeak.com/update?api_key=NXZ8BW7FX347SMSX&field1=";
+
+void setup() {
+  Serial.begin(9600);
+  gsmSerial.begin(9600); 
+}
+
+bool sendATCommand(String command) {
+  Serial.println("Sending command: " + command);
+  gsmSerial.println(command);
+  delay(1000); 
+
+  while (gsmSerial.available()) {
+    Serial.write(gsmSerial.read());
+  }
+  
+  String response = gsmSerial.readStringUntil('\n');
+  Serial.println("Response: " + response);
+  return response.startsWith("OK");
+}
+
+void loop() {
+  float latitude = 15.483404; 
+  float longitude = 74.939025;
+
+  
+  String url = String(SERVER_URL) + String(latitude, 6) + "&field2=" + String(longitude, 6);
+
+  if (sendATCommand("AT+HTTPINIT") &&
+      sendATCommand("AT+HTTPPARA=\"URL\",\"" + url + "\"") &&
+      sendATCommand("AT+HTTPACTION=0")) {
+    delay(10000); 
+    sendATCommand("AT+HTTPTERM");
+  } else {
+    Serial.println("Failed to perform HTTP request.");
+  }
+  delay(5000); 
+}

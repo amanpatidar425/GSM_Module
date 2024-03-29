@@ -1,0 +1,67 @@
+#include <TinyGPS++.h>
+#include <SoftwareSerial.h>
+
+
+#define GPS_RX_PIN 10
+#define GPS_TX_PIN 11
+TinyGPSPlus gps;
+
+
+SoftwareSerial gpsSerial(GPS_RX_PIN, GPS_TX_PIN);
+
+
+#define SIM_RX_PIN 17
+#define SIM_TX_PIN 16
+SoftwareSerial simSerial(SIM_RX_PIN, SIM_TX_PIN);
+
+void setup() {
+  
+  Serial.begin(9600);
+  gpsSerial.begin(9600); 
+  simSerial.begin(9600); 
+  delay(1000); 
+  sendSMS("+917680096031", "Initializing..."); 
+}
+
+void loop() {
+  
+  while (gpsSerial.available() > 0) {
+    gps.encode(gpsSerial.read());
+  }
+
+ 
+  if (gps.location.isUpdated()) {
+    Serial.print("Latitude: ");
+    Serial.print(gps.location.lat(), 6);
+    Serial.print(", Longitude: ");
+    Serial.println(gps.location.lng(), 6);
+    
+    sendSMS("+917680096031", "Latitude: " + String(gps.location.lat(), 6) + ", Longitude: " + String(gps.location.lng(), 6));
+    
+    delay(60000);
+  }
+}
+
+void sendSMS(String number, String message) {
+  simSerial.println("AT+CMGF=1");
+  delay(100);
+  while (simSerial.available()) {
+    Serial.write(simSerial.read());
+  }
+  
+  
+  simSerial.print("AT+CMGS=\"");
+  simSerial.print(number);
+  simSerial.println("\"");
+  delay(100);
+  while (simSerial.available()) {
+    Serial.write(simSerial.read());
+  }
+  
+  simSerial.print(message);
+  simSerial.write((byte)26); 
+  delay(100);
+  while (simSerial.available()) {
+    Serial.write(simSerial.read());
+  }
+}

@@ -1,0 +1,226 @@
+AT
+OK
+AT+CMGF=1
+OK
+AT+CMGS="+919731842695"
+>
+ATllo World
++CMS ERROR: Network timeout
+AT
+OK
+AT+CREG?
++CREG: 0,1
+
+OK
+AT
+OK
+AT+CREG?
++CREG: 0,1
+
+OK
+
++CMTI: "SM",1
+AT+CMGR
+ERROR
+AT
+OK
+AT+CMGR=1
++CMGR: "REC UNREAD","+916305692471","","24/02/27,12:26:00+20"
+Hello world
+
+OK
+AT+CSMS=?
+ERROR
+AT+CSMS=1
++CSMS: 1,1,1
+
+OK
+AT+CSMS=?
+ERROR
+AT+CSMS?
++CSMS: 1,1,1,1
+
+OK
+AT+CMGF?
++CMGF: 1
+
+OK
+AT+CSCA?
++CSCA: "+919845087001",145
+
+OK
+AT+CMGL
+ERROR
+AT+CMGL?
++CMS ERROR: Operation not allowed
+AT+CMGL="all"
++CMGL: 1,"REC READ","+916305692471","","24/02/27,12:26:00+20"
+Hello world
+
+OK
+AT+CMGS=?
+OK
+AT+CMGF?
++CMGF: 1
+
+OK
+AT+CMGS="+919731842695",5,"Hello"
+ERROR
+AT
+OK
+AT+CMGS="+919731842695"
+>
+HELLO
++CMGS: 44,"010042207221339322"
+
+OK
+AT+CMGS="+919731842695"
+>
+HELLO
++CMGS: 45,"010042207221434222"
+
+OK
+AT
+ERROR
+AT
+OK
+AT+HTTPINIT
+OK
+AT+HTTPPARA="URL","https://api.thingspeak.com/update?api_key=Z8MTX9DEMK99FQCJ&fi                                                                             eld1=1.4"
+OK
+AT+HTTPACTION=0
+OK
+
++HTTPACTION: 0,715,0
+AT
+OK
+AT+HTTPHEAD
+ERROR
+AT+HTTPHEAD=?
+OK
+AT+HTTPINIT
+ERROR
+AT+HTTPPARA="URL","https://www.example.com"
+OK
+AT+HTTPACTION=0
+OK
+
++HTTPACTION: 0,713,0
+AT
+OK
+AT+HTTPPARA="URL","www.example.com"
+ERROR
+AT
+OK
+AT+HTTPPARA="URL","http://example.com"
+OK
+AT+HTTPACTION=0
+ERROR
+AT+HTTPACTION=0
+OK
+
++HTTPACTION: 0,200,1256
+AT
+OK
+AT+HTTPHEAD
++HTTPHEAD: 347
+HTTP/1.1 200 OK
+Accept-Ranges: bytes
+Age: 355540
+Cache-Control: max-age=604800
+Content-Type: text/html; charset=UTF-8
+Date: Tue, 27 Feb 2024 07:13:24 GMT
+Etag: "3147526947"
+Expires: Tue, 05 Mar 2024 07:13:24 GMT
+Last-Modified: Thu, 17 Oct 2019 07:18:26 GMT
+Server: ECS (dce/2690)
+Vary: Accept-Encoding
+X-Cache: HIT
+Content-Length: 1256
+OK
+AT+HTTPBODY
+ERROR
+TPPARA="URL","https://api.thingspeak.com/update?api_key=Z8MTX9DEMK99FQCJ&field1=                                                                             1.4"
+ERROR
+AT
+OK
+AT+HTTPPARA="URL","http://example.com"
+OK
+AT
+OK
+AT+HTTPACTION=0
+OK
+
++HTTPACTION: 0,200,1256
+AT+HTTPREAD
+ERROR
+AT+HTTPREAD=1256
+OK
+
++HTTPREAD: 1024
+<!doctype html>
+               <html>
+                     <head>
+                               <title>Example Domain</title>
+
+                                                                <meta charset="utf-8" />
+                                                                                            <meta http-equiv="C                                              ontent-type" content="text/html; charset=utf-8" />
+                                                      <meta name="viewport" content="width=device-width, initia                                              l-scale=1" />
+                 <style type="text/css">
+                                            body {
+                                                          background-color: #f0f0f2;
+                                                                                            margin: 0;
+                                                                                                              p                                              adding: 0;
+                  font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", "Open Sans", "Helvetic                                              a Neue", Helvetica, Arial, sans-serif;
+
+                                                  }
+                                                       div {
+                                                                    width: 600px;
+                                                                                         margin: 5em auto;
+                                                                                                                                                                padding: 2em;
+                        background-color: #fdfdff;
+                                                          border-radius: 0.5em;
+                                                                                       box-shadow: 2px 3px 7px                                               2px rgba(0,0,0,0.02);
+                         }
+                              a:link, a:visited {
+                                                         color: #38488f;
+                                                                                text-decoration: none;
+                                                                                                          }
+                                                                                                                                                             @media (max-width: 700px) {
+                                   div {
+                                                    margin: 0 auto;
+                                                                               width: auto;
+                                                                                                   }
+                                                                                                        }
+                                                                                                             </                                              style>
+          </head>
+
+                 <body>
+                       <div>
+                                <h1>Example Domain</h1>
+                                                           <p>This domain is for use in illustra
++HTTPREAD: 232
+tive examples in documents. You may use this
+                                                domain in literature without prior coordination or asking for p                                              ermission.</p>
+                  <p><a href="https://www.iana.org/domains/example">More information...</a></p>
+                                                                                               </div>
+                                                                                                     </body>
+                                                                                                            </h                                              tml>
+
++HTTPREAD: 0
+AT
+OK
+AT+HTTPPARA="URL","http://api.thingspeak.com/update?api_key=Z8MTX9DEMK99FQCJ&field1=40"
+OK
+AT+HTTPACTION=0
+OK
+
++HTTPACTION: 0,200,2
+AT+HTTE
+ERROR
+AT+HTTPREAD=2
+OK
+
++HTTPREAD: 2
+23
++HTTPREAD: 0
