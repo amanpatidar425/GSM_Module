@@ -10,8 +10,6 @@
 //SoftwareSerial simSerial(SIM_RX_PIN, SIM_TX_PIN);
 //AltSoftSerial Serial2(GPS_RX_PIN, GPS_TX_PIN);
 
-//Added to git
-
 TinyGPSPlus gps;
 unsigned long currentMillis;
 unsigned long previousMillis = 0;
