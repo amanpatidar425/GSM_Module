@@ -38,9 +38,9 @@ void setup() {
 void loop() {
   
   // This sketch displays information every time a new sentence is correctly encoded.
-  while (Serial1.available() > 0)
-    if (gps.encode(Serial1.read()))
-      displayInfo();
+  while (Serial2.available() > 0)
+    if (gps.encode(Serial2.read()))
+       displayInfo();
 
   // If 5000 milliseconds pass and there are no characters coming in
   // over the software serial port, show a "No GPS detected" error
