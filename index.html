@@ -1,0 +1,74 @@
+<head>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+     crossorigin=""/>
+
+<!-- Make sure you put this AFTER Leaflet's CSS -->
+ <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+     crossorigin=""></script>
+</head>
+
+<body>
+This is index.html
+<div id="map" style="height: 640px; width: 480px;">
+</div>
+
+<script>
+var map = L.map('map').setView([51.505, -0.09], 13);
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+}).addTo(map);
+
+
+
+// Replace 'your-api-endpoint' with the actual endpoint URL
+fetch('https://api.thingspeak.com/channels/2500568/feeds.json?api_key=3TVTGFNPIZH5T08Y&results=2')
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.json();
+  })
+  .then(data => {
+    // Replace 'fieldToParse' with the name of the field you want to parse
+    //const lat = data.fieldToParse;
+    console.log("Parsing...");
+    console.log(JSON.stringify(data));
+    console.log("-----");
+    console.log(data.feeds[data.feeds.length - 1 ].field1); // or do whatever you want with the parsed field
+
+    var lat = data.feeds[data.feeds.length - 1 ].field1;
+    var lon = data.feeds[data.feeds.length - 1 ].field2;    
+
+       var circle = L.circle([lat, lon], {
+         color: 'red',
+         fillColor: '#f03',
+         fillOpacity: 0.5,
+         radius: 20
+     }).addTo(map);
+
+     map.setView([lat,lon],18);
+
+
+    for (var i = 10; i >= 0; i--) {
+         console.log(i);
+         console.log("---\n");
+         
+    }
+
+  })
+  .catch(error => {
+    console.error('There was a problem with the fetch operation:', error);
+  });
+
+
+
+
+//https://api.thingspeak.com/channels/2500568/feeds.json?api_key=3TVTGFNPIZH5T08Y&results=2
+</script>
+
+
+
+</body>
